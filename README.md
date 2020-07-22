@@ -4,7 +4,7 @@ Configure VDO devices.
 
 |Travis|GitHub|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
-|[![travis](https://travis-ci.com/robertdebock/ansible-role-vdo.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-vdo)|[![github](https://github.com/robertdebock/ansible-role-vdo/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vdo/actions)|[![quality](https://img.shields.io/ansible/quality/)](https://galaxy.ansible.com/robertdebock/vdo)|[![downloads](https://img.shields.io/ansible/role/d/)](https://galaxy.ansible.com/robertdebock/vdo)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vdo.svg)](https://github.com/robertdebock/ansible-role-vdo/releases/)|
+|[![travis](https://travis-ci.com/robertdebock/ansible-role-vdo.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-vdo)|[![github](https://github.com/robertdebock/ansible-role-vdo/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vdo/actions)|[![quality](https://img.shields.io/ansible/quality/49820)](https://galaxy.ansible.com/robertdebock/vdo)|[![downloads](https://img.shields.io/ansible/role/d/49820)](https://galaxy.ansible.com/robertdebock/vdo)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vdo.svg)](https://github.com/robertdebock/ansible-role-vdo/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -20,7 +20,7 @@ This example is taken from `molecule/resources/converge.yml` and is tested on ea
     - role: robertdebock.vdo
       vdo_devices:
         - name: vdo1
-          device: /root/diskimage
+          device: /dev/loop0
           logicalsize: 1T
 ```
 
@@ -38,6 +38,9 @@ The machine may need to be prepared using `molecule/resources/prepare.yml`:
   post_tasks:
     - name: make a block device
       command: dd if=/dev/zero of=/root/diskimage bs=1M count=1024
+
+    - name: create loop device
+      command: losetup --find --partscan /root/diskimage
 ```
 
 For verification `molecule/resources/verify.yml` run after the role has been applied.
@@ -95,12 +98,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 
 |container|tags|
 |---------|----|
-|alpine|all|
-|debian|all|
-|el|7, 8|
-|fedora|all|
-|opensuse|all|
-|ubuntu|all|
+|el|8|
 
 The minimum version of Ansible required is 2.8 but tests have been done to:
 
@@ -147,10 +145,6 @@ image="debian" tag="stable" tox
 ## [License](#license)
 
 Apache-2.0
-
-## [Contributors](#contributors)
-
-I'd like to thank everybody that made contributions to this repository. It motivates me, improves the code and is just fun to collaborate.
 
 
 ## [Author Information](#author-information)
