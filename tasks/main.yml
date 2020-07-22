@@ -1,0 +1,26 @@
+---
+# tasks file for vdo
+- name: include assert.yml
+  include_tasks: assert.yml
+
+- name: install requirements
+  package:
+    name: "{{ vdo_packages }}"
+    state: present
+
+- name: start and enable service
+  service:
+    name: "{{ vdo_service }}"
+    state: started
+    enabled: true
+
+- name: create vdo device
+  vdo:
+    name: "{{ item.name }}"
+    state: present
+    device: "{{ item.device }}"
+    logicalsize: "{{ item.logicalsize }}"
+  loop: "{{ vdo_devices }}"
+  when:
+    - vdo_devices is defined
+    - ansible_connection != "docker"

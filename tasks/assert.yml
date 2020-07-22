@@ -1,0 +1,61 @@
+---
+- name: test if vdo_devices is set correctly
+  assert:
+    that:
+      - vdo_devices | length > 0
+      - vdo_devices is iterable
+    quiet: yes
+  when:
+    - vdo_devices is defined
+
+- name: test if item in vdo_devices is set correctly
+  assert:
+    that:
+      - item.name is defined
+      - item.name | length > 0
+      - item.device is defined
+      - item.device | length > 0
+      - item.logicalsize is defined
+      - item.logicalsize | length > 0
+    quiet: yes
+  loop: "{{ vdo_devices }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - vdo_devices is defined
+
+# - name: test if vdo_X is set correctly
+#   assert:
+#     that:
+#       - vdo_X is defined
+#       - vdo_X | length > 0
+#       - vdo_X is iterable
+#       - vdo_X | int
+#       - vdo_X | int >= 0
+#       - vdo_X | type_debug == "bool"
+#       - vdo_X in ["a", "b"]
+#     quiet: yes
+# 
+# - name: test if vdo_X is set correctly
+#   assert:
+#     that:
+#       - vdo_X is defined
+#       - vdo_X | length > 0
+#       - vdo_X is iterable
+#       - vdo_X | int
+#       - vdo_X | int >= 0
+#       - vdo_X | type_debug == "bool"
+#       - vdo_X in ["a", "b"]
+#     quiet: yes
+#
+# - name: test if vdo_X is set correctly
+#   assert:
+#     that:
+#       - vdo_X is defined
+#       - vdo_X | length > 0
+#       - vdo_X is iterable
+#       - vdo_X | int
+#       - vdo_X | int >= 0
+#       - vdo_X | type_debug == "bool"
+#       - vdo_X in ["a", "b"]
+#     quiet: yes

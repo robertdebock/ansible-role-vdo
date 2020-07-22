@@ -1,0 +1,15 @@
+---
+- name: prepare
+  hosts: all
+  become: yes
+  gather_facts: no
+
+  roles:
+    - role: robertdebock.bootstrap
+
+  post_tasks:
+    - name: make a block device
+      command: dd if=/dev/zero of=/root/diskimage bs=1M count=1024
+
+    - name: create loop device
+      command: losetup --find --partscan /root/diskimage

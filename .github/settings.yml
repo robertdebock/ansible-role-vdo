@@ -1,0 +1,7 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Configure VDO devices.
+  homepage: https://robertdebock.nl/
