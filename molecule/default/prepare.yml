@@ -10,6 +10,8 @@
   post_tasks:
     - name: make a block device
       command: dd if=/dev/zero of=/root/diskimage bs=1M count=1024
+      changed_when: no
 
     - name: create loop device
       command: losetup --find --partscan /root/diskimage
+      changed_when: no
