@@ -34,15 +34,6 @@ The machine needs to be prepared in CI this is done using `molecule/resources/pr
 
   roles:
     - role: robertdebock.bootstrap
-
-  post_tasks:
-    - name: make a block device
-      command: dd if=/dev/zero of=/root/diskimage bs=1M count=1024
-      changed_when: no
-
-    - name: create loop device
-      command: losetup --find --partscan /root/diskimage
-      changed_when: no
 ```
 
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.

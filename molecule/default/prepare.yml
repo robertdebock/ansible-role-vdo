@@ -6,26 +6,3 @@
 
   roles:
     - role: robertdebock.bootstrap
-
-  post_tasks:
-    - name: make a sparse file
-      command: dd if=/dev/zero of=/root/diskimage bs=1M count=1024
-      args:
-        creates: /root/diskimage
-
-    - name: find loop devices
-      find:
-        paths: /dev
-        patterns: 'loop*'
-      register: vdo_loop
-
-    - name: make new loop device
-      command: mknod /dev/loop{{ vdo_loop.matched + 1  }} b 7 0
-      args:
-        creates: "/dev/loop{{ vdo_loop.matched + 1  }}"
-
-    - name: setup loop device
-      command: losetup /dev/loop{{ vdo_loop.matched + 1 }} /root/diskimage
-      changed_when: no
-      when:
-        - ansible_connection != "docker"
