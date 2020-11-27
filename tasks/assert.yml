@@ -12,8 +12,11 @@
   assert:
     that:
       - item.name is defined
+      - item.name is string
       - item.device is defined
+      - item.device is string
       - item.logicalsize is defined
+      - item.logicalsize is string
     quiet: yes
   loop: "{{ vdo_devices }}"
   loop_control:
