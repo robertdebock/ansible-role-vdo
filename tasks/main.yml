@@ -7,18 +7,18 @@
   delegate_to: localhost
 
 - name: install requirements
-  package:
+  ansible.builtin.package:
     name: "{{ vdo_packages }}"
     state: present
 
 - name: start and enable service
-  service:
+  ansible.builtin.service:
     name: "{{ vdo_service }}"
     state: started
     enabled: true
 
 - name: create vdo device
-  vdo:
+  community.general.vdo:
     name: "{{ item.name }}"
     state: present
     device: "{{ item.device }}"
