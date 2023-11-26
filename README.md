@@ -1,4 +1,4 @@
-# Ansible role [vdo](#vdo)
+# [Ansible role vdo](#vdo)
 
 Configure VDO devices.
 
