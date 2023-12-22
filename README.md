@@ -1,5 +1,7 @@
 # [Ansible role vdo](#vdo)
 
+> THIS ROLE HAS BEEN ARCHIVED AS OF DEC 2023.
+
 Configure VDO devices.
 
 |GitHub|GitLab|Downloads|Version|
